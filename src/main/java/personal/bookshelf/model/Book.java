@@ -15,7 +15,7 @@ public class Book extends AbstractEntity implements IdentifiableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String title;
 
     // TODO: Create separate table for authors

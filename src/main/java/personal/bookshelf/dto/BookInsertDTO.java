@@ -17,6 +17,6 @@ public class BookInsertDTO {
 
     private String author;
 
-    @Pattern(regexp = "^[12]\\d{3}]$")
+    @Pattern(regexp = "^[12]\\d{3}$")
     private String releaseYear;
 }

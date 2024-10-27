@@ -12,13 +12,17 @@ import personal.bookshelf.model.IdentifiableEntity;
 
 import java.util.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Getter
 @Setter
-public class GenericCRUDImpl<T extends IdentifiableEntity> implements IGenericCRUD<T> {
+public abstract class GenericCRUDImpl<T extends IdentifiableEntity> implements IGenericCRUD<T> {
 
     private Class<T> persistenceClass;
+
+    public GenericCRUDImpl() {
+
+    }
 
     @Override
     public Optional<T> insert(T t) {

@@ -11,11 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface IBookService {
-    BookReadOnlyDTO insertBook(BookInsertDTO insertDTO) throws EntityAlreadyExistsException, EntityInvalidArgumentsException;
-    BookReadOnlyDTO updateBook(BookUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentsException;
+    BookReadOnlyDTO insertBook(BookInsertDTO bookInsertDTO) throws EntityAlreadyExistsException, EntityInvalidArgumentsException;
+    BookReadOnlyDTO updateBook(BookUpdateDTO bookUpdateDTO) throws EntityNotFoundException, EntityInvalidArgumentsException;
     void deleteBook(Long id) throws EntityNotFoundException;
-    BookReadOnlyDTO getBookById();
-    BookReadOnlyDTO getBookByTitle();
+    BookReadOnlyDTO getBookById(Long id) throws EntityNotFoundException;
+    BookReadOnlyDTO getBookByTitle(String title) throws EntityNotFoundException;
+    List<BookReadOnlyDTO> getBooksByAuthor(String author);
+    List<BookReadOnlyDTO> getBooksByReleaseYear(String releaseYear);
     List<BookReadOnlyDTO> getBooksByCriteria(Map<String, Object> criteria);
-    List<BookInsertDTO> getAllBooks();
+    List<BookReadOnlyDTO> getAllBooks();
 }

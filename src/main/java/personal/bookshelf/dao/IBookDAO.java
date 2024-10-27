@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IBookDAO extends IGenericCRUD<Book> {
-    Optional<Book> getByTitle();
-    List<Book> getByAuthor();
-    List<Book> getByReleaseYear();
+    Optional<Book> findBookByTitle(String title);
+    List<Book> findBooksByAuthor(String author);
+    List<Book> findBooksByReleaseYear(String releaseYear);
 }

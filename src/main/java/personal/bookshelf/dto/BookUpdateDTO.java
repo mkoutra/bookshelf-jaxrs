@@ -2,9 +2,20 @@ package personal.bookshelf.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class BookUpdateDTO {
-    @NotEmpty(message = "Title is mandatory.")
+    @NotEmpty(message = "Id must not be empty.")
+    private Long id;
+
+    @NotEmpty(message = "Title must not be empty.")
     private String title;
 
     private String author;
