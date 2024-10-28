@@ -3,17 +3,13 @@ package personal.bookshelf.dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import personal.bookshelf.core.util.JPAHelper;
 import personal.bookshelf.model.IdentifiableEntity;
 
 import java.util.*;
 
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Getter
 @Setter
 public abstract class GenericCRUDImpl<T extends IdentifiableEntity> implements IGenericCRUD<T> {
@@ -125,7 +121,7 @@ public abstract class GenericCRUDImpl<T extends IdentifiableEntity> implements I
         for (Map.Entry<String, Object> entry : criteria.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
-            query.setParameter(createParameterName(key), value);
+            query.setParameter(createParameterName(key), value + "%");
         }
     }
 }

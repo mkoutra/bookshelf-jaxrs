@@ -10,12 +10,15 @@ import personal.bookshelf.core.exception.EntityAlreadyExistsException;
 import personal.bookshelf.core.exception.EntityInvalidArgumentsException;
 import personal.bookshelf.core.exception.EntityNotFoundException;
 import personal.bookshelf.core.util.validator.ValidatorUtil;
+import personal.bookshelf.dto.BookFiltersDTO;
 import personal.bookshelf.dto.BookInsertDTO;
 import personal.bookshelf.dto.BookReadOnlyDTO;
 import personal.bookshelf.dto.BookUpdateDTO;
+import personal.bookshelf.mapper.Mapper;
 import personal.bookshelf.service.IBookService;
 
 import java.util.List;
+import java.util.Map;
 
 @ApplicationScoped
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
@@ -23,6 +26,7 @@ import java.util.List;
 public class BookRestController {
 
     private final IBookService bookService;
+    private final Mapper mapper;
 
     @POST
     @Path("/")
@@ -77,19 +81,15 @@ public class BookRestController {
         return Response.status(Response.Status.OK).entity(bookReadOnlyDTO).build();
     }
 
-//    @GET
-//    @Path("/{bookTitle}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getBookByTitle(@PathParam("bookTitle") String bookTitle) throws EntityNotFoundException {
-//        BookReadOnlyDTO bookReadOnlyDTO = bookService.getBookByTitle(bookTitle);
-//        return Response.status(Response.Status.OK).entity(bookReadOnlyDTO).build();
-//    }
-
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBooks() {
-        List<BookReadOnlyDTO> allBooks = bookService.getAllBooks();
-        return Response.status(Response.Status.OK).entity(allBooks).build();
+    public Response getFilteredBooks(@QueryParam("title") String title,
+                                     @QueryParam("author") String author,
+                                     @QueryParam("releaseYear") String releaseYear) {
+        BookFiltersDTO bookFiltersDTO = new BookFiltersDTO(title, author, releaseYear);
+        Map<String, Object> criteria = mapper.mapToCriteria(bookFiltersDTO);
+        List<BookReadOnlyDTO> books = bookService.getBooksByCriteria(criteria);
+        return Response.status(Response.Status.OK).entity(books).build();
     }
 }

@@ -1,6 +1,7 @@
 package personal.bookshelf.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookUpdateDTO {
-    @NotEmpty(message = "Id must not be empty.")
+    @NotNull(message = "Id must not be empty.")
     private Long id;
 
     @NotEmpty(message = "Title must not be empty.")
@@ -20,6 +21,6 @@ public class BookUpdateDTO {
 
     private String author;
 
-    @Pattern(regexp = "^[12]\\d{3}]$")
+    @Pattern(regexp = "^[12]\\d{3}$", message = "Invalid year.")
     private String releaseYear;
 }

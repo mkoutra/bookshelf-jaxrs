@@ -28,7 +28,7 @@ public class BookDAO extends GenericCRUDImpl<Book> implements IBookDAO {
         EntityManager em = getEntityManager();
 
         try {
-            String jpql = "SELECT b FROM Book b WHERE b.title = :title";
+            String jpql = "SELECT b FROM Book b WHERE b.title LIKE :title";
             TypedQuery<Book> query = em.createQuery(jpql, Book.class);
             query.setParameter("title", title + "%");
 
@@ -47,7 +47,7 @@ public class BookDAO extends GenericCRUDImpl<Book> implements IBookDAO {
     public List<Book> findBooksByAuthor(String author) {
         EntityManager em = getEntityManager();
 
-        String jpql = "SELECT b FROM Book b WHERE b.author = :author";
+        String jpql = "SELECT b FROM Book b WHERE b.author LIKE :author";
         TypedQuery<Book> query = em.createQuery(jpql, Book.class);
         query.setParameter("author", author + "%");
 
