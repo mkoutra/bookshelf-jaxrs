@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import personal.bookshelf.core.exception.EntityAlreadyExistsException;
 import personal.bookshelf.core.exception.EntityInvalidArgumentsException;
 import personal.bookshelf.core.exception.EntityNotFoundException;
-import personal.bookshelf.core.util.JPAHelper;
+import personal.bookshelf.core.util.jpa.JPAHelperUtil;
 import personal.bookshelf.dao.IBookDAO;
 import personal.bookshelf.dto.BookInsertDTO;
 import personal.bookshelf.dto.BookReadOnlyDTO;
@@ -31,7 +31,7 @@ public class BookService implements IBookService {
     public BookReadOnlyDTO insertBook(BookInsertDTO bookInsertDTO)
             throws EntityAlreadyExistsException, EntityInvalidArgumentsException {
         try {
-            JPAHelper.beginTransaction();
+            JPAHelperUtil.beginTransaction();
             Book book = mapper.mapToBookEntity(bookInsertDTO);
 
             if (bookDAO.findBookByTitle(book.getTitle()).isPresent()) {
@@ -42,7 +42,7 @@ public class BookService implements IBookService {
                                                      .map(mapper::mapToBookReadOnlyDTO)
                                                      .orElseThrow(() -> new EntityInvalidArgumentsException("Book",
                                                              "Book with title " + book.getTitle() + " not inserted."));
-            JPAHelper.commitTransaction();
+            JPAHelperUtil.commitTransaction();
 
             LOGGER.info("Book with id {} and title {} inserted.", book.getId(), book.getTitle());
 
@@ -50,10 +50,10 @@ public class BookService implements IBookService {
         } catch (Exception e) {
             LOGGER.error("Book with title {}, author: {}, release year: {} was not inserted",
                     bookInsertDTO.getTitle(), bookInsertDTO.getAuthor(), bookInsertDTO.getReleaseYear());
-            JPAHelper.rollbackTransaction();
+            JPAHelperUtil.rollbackTransaction();
             throw e;
         } finally {
-            JPAHelper.closeEntityManager();
+            JPAHelperUtil.closeEntityManager();
         }
     }
 
@@ -61,7 +61,7 @@ public class BookService implements IBookService {
     public BookReadOnlyDTO updateBook(BookUpdateDTO bookUpdateDTO)
             throws EntityNotFoundException, EntityInvalidArgumentsException {
         try {
-            JPAHelper.beginTransaction();
+            JPAHelperUtil.beginTransaction();
             Book book = mapper.mapToBookEntity(bookUpdateDTO);
 
             bookDAO.getById(bookUpdateDTO.getId())
@@ -71,114 +71,114 @@ public class BookService implements IBookService {
                                                      .map(mapper::mapToBookReadOnlyDTO)
                                                      .orElseThrow(() -> new EntityInvalidArgumentsException("Book",
                                                              "Book with id " + book.getId() + " not updated."));
-            JPAHelper.commitTransaction();
+            JPAHelperUtil.commitTransaction();
 
             LOGGER.info("Book with id {} was update.", book.getId());
 
             return bookReadOnlyDTO;
         } catch (Exception e) {
             LOGGER.error("Book with id {} was not updated", bookUpdateDTO.getId());
-            JPAHelper.rollbackTransaction();
+            JPAHelperUtil.rollbackTransaction();
             throw e;
         } finally {
-            JPAHelper.closeEntityManager();
+            JPAHelperUtil.closeEntityManager();
         }
     }
 
     @Override
     public void deleteBook(Long id) throws EntityNotFoundException {
         try {
-            JPAHelper.beginTransaction();
+            JPAHelperUtil.beginTransaction();
             bookDAO.getById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Book", "Book with id " + id + " was not found."));
             bookDAO.delete(id);
-            JPAHelper.commitTransaction();
+            JPAHelperUtil.commitTransaction();
 
             LOGGER.info("Book with id: {} was deleted.", id);
         } catch (Exception e) {
             LOGGER.error("Book with id {} was not deleted.", id);
-            JPAHelper.rollbackTransaction();
+            JPAHelperUtil.rollbackTransaction();
             throw e;
         } finally {
-            JPAHelper.closeEntityManager();
+            JPAHelperUtil.closeEntityManager();
         }
     }
 
     @Override
     public BookReadOnlyDTO getBookById(Long id) throws EntityNotFoundException {
         try {
-            JPAHelper.beginTransaction();
+            JPAHelperUtil.beginTransaction();
 
             BookReadOnlyDTO bookReadOnlyDTO = bookDAO.getById(id)
                                                      .map(mapper::mapToBookReadOnlyDTO)
                                                      .orElseThrow(() -> new EntityNotFoundException("Book",
                                                          "Book with id " + id + " was not found."));
-            JPAHelper.commitTransaction();
+            JPAHelperUtil.commitTransaction();
 
             LOGGER.info("Book with id {} was found.", id);
 
             return bookReadOnlyDTO;
         } catch (Exception e) {
             LOGGER.error("Book with id {} was not found.", id);
-            JPAHelper.rollbackTransaction();
+            JPAHelperUtil.rollbackTransaction();
             throw e;
         } finally {
-            JPAHelper.closeEntityManager();
+            JPAHelperUtil.closeEntityManager();
         }
     }
 
     @Override
     public BookReadOnlyDTO getBookByTitle(String title) throws EntityNotFoundException {
         try {
-            JPAHelper.beginTransaction();
+            JPAHelperUtil.beginTransaction();
 
             BookReadOnlyDTO bookReadOnlyDTO = bookDAO.getById(title)
                     .map(mapper::mapToBookReadOnlyDTO)
                     .orElseThrow(() -> new EntityNotFoundException("Book",
                             "Book with title " + title + " was not found."));
-            JPAHelper.commitTransaction();
+            JPAHelperUtil.commitTransaction();
 
             LOGGER.info("Book with title {} was found.", title);
 
             return bookReadOnlyDTO;
         } catch (Exception e) {
             LOGGER.error("Book with title {} was not found.", title);
-            JPAHelper.rollbackTransaction();
+            JPAHelperUtil.rollbackTransaction();
             throw e;
         } finally {
-            JPAHelper.closeEntityManager();
+            JPAHelperUtil.closeEntityManager();
         }
     }
 
     @Override
     public List<BookReadOnlyDTO> getBooksByAuthor(String author) {
-        JPAHelper.beginTransaction();
+        JPAHelperUtil.beginTransaction();
         List<Book> books =  bookDAO.findBooksByAuthor(author);
-        JPAHelper.commitTransaction();
+        JPAHelperUtil.commitTransaction();
         return books.stream().map(mapper::mapToBookReadOnlyDTO).toList();
     }
 
     @Override
     public List<BookReadOnlyDTO> getBooksByReleaseYear(String releaseYear) {
-        JPAHelper.beginTransaction();
+        JPAHelperUtil.beginTransaction();
         List<Book> books =  bookDAO.findBooksByReleaseYear(releaseYear);
-        JPAHelper.commitTransaction();
+        JPAHelperUtil.commitTransaction();
         return books.stream().map(mapper::mapToBookReadOnlyDTO).toList();
     }
 
     @Override
     public List<BookReadOnlyDTO> getBooksByCriteria(Map<String, Object> criteria) {
-        JPAHelper.beginTransaction();
+        JPAHelperUtil.beginTransaction();
         List<Book> books = bookDAO.getByCriteria(criteria);
-        JPAHelper.commitTransaction();
+        JPAHelperUtil.commitTransaction();
         return books.stream().map(mapper::mapToBookReadOnlyDTO).toList();
     }
 
     @Override
     public List<BookReadOnlyDTO> getAllBooks() {
-        JPAHelper.beginTransaction();
+        JPAHelperUtil.beginTransaction();
         List<Book> books = bookDAO.getAll();
-        JPAHelper.commitTransaction();
+        JPAHelperUtil.commitTransaction();
         return books.stream().map(mapper::mapToBookReadOnlyDTO).toList();
     }
 }

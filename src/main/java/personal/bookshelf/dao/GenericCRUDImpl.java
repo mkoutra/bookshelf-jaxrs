@@ -5,7 +5,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.Getter;
 import lombok.Setter;
-import personal.bookshelf.core.util.JPAHelper;
+import personal.bookshelf.core.util.jpa.JPAHelperUtil;
 import personal.bookshelf.model.IdentifiableEntity;
 
 import java.util.*;
@@ -73,7 +73,7 @@ public abstract class GenericCRUDImpl<T extends IdentifiableEntity> implements I
     }
 
     private EntityManager getEntityManager() {
-        return JPAHelper.getEntityManager();
+        return JPAHelperUtil.getEntityManager();
     }
 
     private Predicate[] createPredicatesArray(CriteriaBuilder cb, Root<T> root, Map<String, Object> criteria) {

@@ -1,4 +1,4 @@
-package personal.bookshelf.core.util.validator;
+package personal.bookshelf.core.util.validation;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

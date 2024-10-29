@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import personal.bookshelf.core.exception.EntityAlreadyExistsException;
 import personal.bookshelf.core.exception.EntityInvalidArgumentsException;
 import personal.bookshelf.core.exception.EntityNotFoundException;
-import personal.bookshelf.core.util.validator.ValidatorUtil;
+import personal.bookshelf.core.util.validation.ValidatorUtil;
 import personal.bookshelf.dto.BookFiltersDTO;
 import personal.bookshelf.dto.BookInsertDTO;
 import personal.bookshelf.dto.BookReadOnlyDTO;

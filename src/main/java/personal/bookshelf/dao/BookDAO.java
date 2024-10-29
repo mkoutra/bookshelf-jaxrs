@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
-import personal.bookshelf.core.util.JPAHelper;
+import personal.bookshelf.core.util.jpa.JPAHelperUtil;
 import personal.bookshelf.model.Book;
 
 import java.util.List;
@@ -67,6 +67,6 @@ public class BookDAO extends GenericCRUDImpl<Book> implements IBookDAO {
     }
 
     private EntityManager getEntityManager() {
-        return JPAHelper.getEntityManager();
+        return JPAHelperUtil.getEntityManager();
     }
 }

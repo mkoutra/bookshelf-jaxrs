@@ -1,4 +1,4 @@
-package personal.bookshelf.core.util;
+package personal.bookshelf.core.util.jpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -10,11 +10,11 @@ import jakarta.persistence.Persistence;
  *
  * @author Michail E. Koutrakis
  */
-public class JPAHelper {
+public class JPAHelperUtil {
     private static EntityManagerFactory emf;
     private static ThreadLocal<EntityManager> threadLocalEntityManager = new ThreadLocal<>();
 
-    private JPAHelper() {}
+    private JPAHelperUtil() {}
 
     public static EntityManagerFactory getEntityMangerFactory() {
         if (emf == null || !emf.isOpen()) {
