@@ -18,8 +18,9 @@ public class User extends AbstractEntity implements IdentifiableEntity, Principa
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, updatable = false)
     private String username;
+
     private String password;
 
     @Enumerated(EnumType.STRING)
