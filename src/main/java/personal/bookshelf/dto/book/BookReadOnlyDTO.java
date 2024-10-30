@@ -1,4 +1,4 @@
-package personal.bookshelf.dto;
+package personal.bookshelf.dto.book;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

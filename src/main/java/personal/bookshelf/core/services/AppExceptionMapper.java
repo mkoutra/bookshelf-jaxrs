@@ -4,10 +4,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
-import personal.bookshelf.core.exception.EntityAlreadyExistsException;
-import personal.bookshelf.core.exception.EntityInvalidArgumentsException;
-import personal.bookshelf.core.exception.EntityNotFoundException;
-import personal.bookshelf.core.exception.GenericException;
+import personal.bookshelf.core.exception.*;
 import personal.bookshelf.dto.ErrorMessageDTO;
 
 @Provider
@@ -23,6 +20,8 @@ public class AppExceptionMapper implements ExceptionMapper<GenericException> {
             status = Response.Status.CONFLICT;
         } else if (e instanceof EntityNotFoundException) {
             status = Response.Status.NOT_FOUND;
+        } else if (e instanceof AppServerException) {
+            status = Response.Status.SERVICE_UNAVAILABLE;
         }
 
         return Response

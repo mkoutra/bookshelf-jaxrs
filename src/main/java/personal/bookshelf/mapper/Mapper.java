@@ -2,11 +2,16 @@ package personal.bookshelf.mapper;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.NoArgsConstructor;
-import personal.bookshelf.dto.BookFiltersDTO;
-import personal.bookshelf.dto.BookInsertDTO;
-import personal.bookshelf.dto.BookReadOnlyDTO;
-import personal.bookshelf.dto.BookUpdateDTO;
+import personal.bookshelf.core.enums.RoleType;
+import personal.bookshelf.core.util.security.PasswordUtil;
+import personal.bookshelf.dto.book.BookFiltersDTO;
+import personal.bookshelf.dto.book.BookInsertDTO;
+import personal.bookshelf.dto.book.BookReadOnlyDTO;
+import personal.bookshelf.dto.book.BookUpdateDTO;
+import personal.bookshelf.dto.user.UserInsertDTO;
+import personal.bookshelf.dto.user.UserReadOnlyDTO;
 import personal.bookshelf.model.Book;
+import personal.bookshelf.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,5 +48,17 @@ public class Mapper {
         }
 
         return filters;
+    }
+
+    public UserReadOnlyDTO mapToUserReadOnlyDTO(User user) {
+        return new UserReadOnlyDTO(user.getId(), user.getUsername(), user.getRole().name());
+    }
+
+    public User mapToUser(UserInsertDTO userInsertDTO) {
+        return new User(
+                null,
+                userInsertDTO.getUsername(),
+                PasswordUtil.encryptPassword(userInsertDTO.getPassword()),
+                RoleType.valueOf(userInsertDTO.getRole()));
     }
 }

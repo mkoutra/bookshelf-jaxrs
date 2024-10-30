@@ -1,4 +1,4 @@
-package personal.bookshelf.dto.book;
+package personal.bookshelf.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookFiltersDTO {
-    private String title;
-    private String author;
-    private String releaseYear;
+public class UserReadOnlyDTO {
+    private Long id;
+    private String username;
+    private String role;
 }

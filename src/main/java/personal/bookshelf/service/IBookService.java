@@ -3,9 +3,9 @@ package personal.bookshelf.service;
 import personal.bookshelf.core.exception.EntityAlreadyExistsException;
 import personal.bookshelf.core.exception.EntityInvalidArgumentsException;
 import personal.bookshelf.core.exception.EntityNotFoundException;
-import personal.bookshelf.dto.BookInsertDTO;
-import personal.bookshelf.dto.BookReadOnlyDTO;
-import personal.bookshelf.dto.BookUpdateDTO;
+import personal.bookshelf.dto.book.BookInsertDTO;
+import personal.bookshelf.dto.book.BookReadOnlyDTO;
+import personal.bookshelf.dto.book.BookUpdateDTO;
 
 import java.util.List;
 import java.util.Map;

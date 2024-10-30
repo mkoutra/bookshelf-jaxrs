@@ -1,4 +1,4 @@
-package personal.bookshelf.dto;
+package personal.bookshelf.dto.book;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
