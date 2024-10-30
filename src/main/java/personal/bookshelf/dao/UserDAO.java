@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import personal.bookshelf.core.util.jpa.JPAHelperUtil;
-import personal.bookshelf.core.util.security.PasswordUtil;
+import personal.bookshelf.security.PasswordUtil;
 import personal.bookshelf.model.User;
 
 import java.util.Optional;

@@ -3,7 +3,7 @@ package personal.bookshelf.mapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.NoArgsConstructor;
 import personal.bookshelf.core.enums.RoleType;
-import personal.bookshelf.core.util.security.PasswordUtil;
+import personal.bookshelf.security.PasswordUtil;
 import personal.bookshelf.dto.book.BookFiltersDTO;
 import personal.bookshelf.dto.book.BookInsertDTO;
 import personal.bookshelf.dto.book.BookReadOnlyDTO;

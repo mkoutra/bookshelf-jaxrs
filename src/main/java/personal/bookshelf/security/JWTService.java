@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.enterprise.context.ApplicationScoped;
 import personal.bookshelf.model.User;
 
 import java.security.Key;
@@ -12,9 +13,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.function.Function;
 
+@ApplicationScoped
 public class JWTService {
 
-    // In a real project it must be an envirnmental variable
+    // In a real project it must be an environmental variable
     private final String SECRET_KEY = "5d9669eed4249531da7d7536888c6620807686446937d87a7ff2958bab64f19b";
     private final long JWT_EXPRITATION = 10800000;  // 3 hours in milliseconds
 

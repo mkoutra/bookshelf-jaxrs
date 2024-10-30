@@ -1,4 +1,4 @@
-package personal.bookshelf.core.util.security;
+package personal.bookshelf.security;
 
 import org.mindrot.jbcrypt.BCrypt;
 
