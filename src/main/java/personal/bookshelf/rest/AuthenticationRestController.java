@@ -81,8 +81,13 @@ public class AuthenticationRestController {
 
         UserReadOnlyDTO userReadOnlyDTO = userService.findUserByUsername(userLoginDTO.getUsername());
         String role = userReadOnlyDTO.getRole();
+
+        // Create a JWT token for current user
         String token = jwtService.generateToken(userLoginDTO.getUsername(), role);
         AuthenticationResponseDTO authenticationResponseDTO = new AuthenticationResponseDTO(token);
+
+        // The token is sent back to client.
+        // Client is responsible for placing the token to their HTTP header.
         return Response.status(Response.Status.OK).entity(authenticationResponseDTO).build();
     }
 }

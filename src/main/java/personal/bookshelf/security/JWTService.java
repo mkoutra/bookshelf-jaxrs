@@ -39,6 +39,7 @@ public class JWTService {
         return (subject.equals(user.getName())) && !isTokenExpired(token);
     }
 
+    // Here we mean extract username
     public String extractSubject(String token) {
         return extractClaim(token, Claims::getSubject);
     }
