@@ -1,6 +1,6 @@
 <configuration>
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-         <file>/home/michalis/bookshelf.log</file>
+         <file>logs/bookshelf.log</file>
 
         <!-- Rolling Policy: TimeBasedRollingPolicy is for 24h logging file change -->
 <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
