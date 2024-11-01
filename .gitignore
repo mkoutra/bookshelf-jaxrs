@@ -1,4 +1,5 @@
 tom
+.idea/
 
 target/
 !.mvn/wrapper/maven-wrapper.jar

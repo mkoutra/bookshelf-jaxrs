@@ -2,9 +2,6 @@
 
 A **simple bookshelf application** built to demonstrate the basics of the JAX-RS API.
 
-> **Note:** This implementation does not include static tables of books or authors; users add individual books directly to their shelves.
-Bookshelf enables users to add books to a virtual shelf with minimal information:
-
 ## Features
 
 ### Users
