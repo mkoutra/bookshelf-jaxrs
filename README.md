@@ -78,9 +78,16 @@ Our database is called `bookshelfdb`, with a user called `bookkeeper` and with p
 
 Update `/src/main/resources/META-INF/persistence.xml` to set your database details:
 ```xml
+<properties>
+  .
+  .
+  .
   <property name="hibernate.hikari.dataSource.url" value="jdbc:mysql://localhost:3306/YOUR_DATABASE?serverTimezone=UTC" />
   <property name="hibernate.hikari.dataSource.user" value="YOUR_USERNAME" />
   <property name="hibernate.hikari.dataSource.password" value="YOUR_PASSWORD" />
+  .
+  .
+</properties>
 ```
 
 ### JWT Secret Key
