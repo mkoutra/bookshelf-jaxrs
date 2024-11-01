@@ -6,19 +6,28 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.enterprise.context.ApplicationScoped;
+import personal.bookshelf.core.util.ConfigFileUtil;
 import personal.bookshelf.model.User;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.function.Function;
 
 @ApplicationScoped
 public class JWTService {
 
-    // In a real project it must be an environmental variable
-    private final String SECRET_KEY = "5d9669eed4249531da7d7536888c6620807686446937d87a7ff2958bab64f19b";
-    private final long JWT_EXPRITATION = 10800000;  // 3 hours in milliseconds
+    // In a real project, this should be loaded from environment variables
+    private static String SECRET_KEY = "";
+    private static long JWT_EXPIRATION = 0L;
+
+    static {
+        Properties configProperties = ConfigFileUtil.getPropertiesInstance();
+        SECRET_KEY = configProperties.getProperty("jwt.secretKey");
+        JWT_EXPIRATION = Long.valueOf(configProperties.getProperty("jwt.expiration"));
+    }
 
     public String generateToken(String username, String role) {
         var claims = new HashMap<String, Object>();
@@ -29,7 +38,7 @@ public class JWTService {
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPRITATION))
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -69,7 +78,7 @@ public class JWTService {
     /**
      * Creates a HS256 Key. Key is an interface.
      * Starting from secretKey we get a byte array
-     * of the secret. Then we get the {@link javax.crypto.SecretKey},
+     * of the secret. Then we get the {@link SecretKey},
      * class that implements the {@link Key } interface.
      *
      * @return  a SecretKey which implements Key.
