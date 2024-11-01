@@ -31,14 +31,14 @@ A **simple bookshelf application** built to demonstrate the basics of the JAX-RS
 - **POST** `/auth/login` - Log in a user. Example:
   ```json
   {
-    "username": "joeDoe",
+    "username": "johnDoe",
     "password": "Aa1234567*"
   }
   ```
 - **POST** `/auth/register` - Register a new user.
   ```json
   {
-    "username": "joeDoe",
+    "username": "johnDoe",
     "password": "Aa1234567*",
     "confirmPassword": "Aa1234567*",
     "role": "ADMIN"
